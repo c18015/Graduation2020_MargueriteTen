@@ -18,17 +18,31 @@ public class InstantiateTest : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            pos1 = posGet();
+            pos1 = Input.mousePosition;
+            pos1 = Camera.main.ScreenToWorldPoint(pos1);
+            //Debug.Log(pos1);
         }
 
-        if(Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0))
         {
-            pos1 = posGet();
+            pos2 = Input.mousePosition;
+
+            pos2 = Camera.main.ScreenToWorldPoint(pos2);
+            //Debug.Log(pos2);
+
+
         }
 
         if (Input.GetMouseButtonUp(0))
         {
-           
+            Vector3 diff = (pos1 - pos2);
+            float radian = diff.y * 3 ;
+            float radian2 = diff.x * 3;
+
+            //Debug.Log(diff);
+
+            GameObject obj = Instantiate(prefab, pos1, Quaternion.identity) as GameObject;
+            obj.transform.localScale = new Vector3(radian2, radian, 3);//希望する値 1つ目固定,縦,横
 
         }
     }
@@ -48,7 +62,8 @@ public class InstantiateTest : MonoBehaviour
     {
         GameObject obj = Instantiate(prefab, this.transform.position, Quaternion.identity) as GameObject;
 
-        obj.transform.localScale = new Vector3(1,0,0);//希望する値 1つ目固定,縦,横
+        obj.transform.localScale = new Vector3(1, 0, 0);//希望する値 1つ目固定,縦,横
 
     }
+
 }
